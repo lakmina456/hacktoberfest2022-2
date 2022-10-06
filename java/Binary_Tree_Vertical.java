@@ -22,67 +22,58 @@ public class BinaryTree {
 		int max, min;
 	}
 
-	// Program to find vertical Order
 	public void verticalOrder(Node node)
 	{
 		Values val = new Values();
 
-		// Create TreeMap
 		Map<Integer, List<Integer> > map
 			= new TreeMap<Integer, List<Integer> >();
 
-		// Function Call to findHorizontalDistance
 		findHorizontalDistance(node, val, val, 0, map);
 
-		// Iterate over map.values()
 		for (List<Integer> list : map.values()) {
 			System.out.println(list);
 		}
 
-		// Print "done"
 		System.out.println("done");
 	}
 
-	// Program to find Horizontal Distance
 	public void findHorizontalDistance(
 		Node node, Values min, Values max, int hd,
 		Map<Integer, List<Integer> > map)
 	{
 
-		// If node is null
 		if (node == null)
+		{
 			return;
+		}
 
-		// if hd is less than min.min
 		if (hd < min.min)
+		{
 			min.min = hd;
+		}
 
-		// if hd is greater than min.min
+
 		if (hd > max.max)
+		{
 			max.max = hd;
+		}
 
-		// Using computeIfAbsent
+
 		map.computeIfAbsent(hd,
-							k -> new ArrayList<Integer>())
+			k -> new ArrayList<Integer>())
 			.add(node.data);
 
-		// Function Call with hd equal to hd - 1
-		findHorizontalDistance(node.left, min, max, hd - 1,
-								map);
+		findHorizontalDistance(node.left, min, max, hd - 1, map);
 
-		// Function Call with hd equal to hd + 1
-		findHorizontalDistance(node.right, min, max,
-								hd + 1, map);
+		findHorizontalDistance(node.right, min, max, hd + 1, map);
 	}
 
-	// Driver Code
 	public static void main(String[] args)
 	{
 
 		BinaryTree tree = new BinaryTree();
 
-		/* Let us construct the tree shown
-							in above diagram */
 		tree.root = new Node(1);
 		tree.root.left = new Node(2);
 		tree.root.right = new Node(3);
@@ -95,7 +86,6 @@ public class BinaryTree {
 
 		System.out.println("vertical order traversal is :");
 
-		// Function Call
 		tree.verticalOrder(tree.root);
 	}
 }
